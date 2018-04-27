@@ -93,3 +93,4 @@ BOOST_AUTO_TEST_CASE(Find_test)
     BOOST_CHECK(found);
     BOOST_CHECK_EQUAL(value, 4);
 }
+

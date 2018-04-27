@@ -1,9 +1,12 @@
 #ifndef NODE_H
 #define NODE_H
-
 #include <memory>
 #include <string>
+
 using namespace std;
+
+template <typename TKey, typename TValue>
+class Tree;
 
 template <typename TKey, typename TValue>
 class Node
@@ -13,6 +16,7 @@ class Node
     TKey key;
     TValue value;
     static shared_ptr<Node<TKey, TValue>> Minimum(shared_ptr<Node<TKey, TValue>> root);
+    friend class Tree <TKey, TValue>;
 public:
     Node(TKey key, TValue value);
     TValue Value()const;
