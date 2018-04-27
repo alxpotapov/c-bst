@@ -22,7 +22,7 @@ void Node<TKey, TValue>::SetValue(TValue value)
 template<typename TKey, typename TValue>
 string Node<TKey, TValue>::String()
 {
-    if (this == nullptr) {
+    if (!this) {
         return "()";
     }
     string s = "";
@@ -41,7 +41,7 @@ string Node<TKey, TValue>::String()
 template<typename TKey, typename TValue>
 shared_ptr<Node<TKey, TValue> > Node<TKey, TValue>::Insert(shared_ptr<Node<TKey, TValue> > root, TKey key, TValue value)
 {
-    if (root == nullptr)
+    if (!root)
     {
         return make_shared<Node<TKey, TValue>>(key, value);
     }
@@ -59,4 +59,77 @@ shared_ptr<Node<TKey, TValue> > Node<TKey, TValue>::Insert(shared_ptr<Node<TKey,
         root.get()->children[Child::RIGHT] = Insert(root.get()->children[Child::RIGHT], key, value);
     }
     return root;
+}
+template<typename TKey, typename TValue>
+shared_ptr<Node<TKey, TValue> > Node<TKey, TValue>::Delete(shared_ptr<Node<TKey, TValue> > root, TKey key)
+{
+    if (!root)
+    {
+        return nullptr;
+    }
+    if (root.get()->key == key)
+    {
+        // no children
+        if (!root.get()->children[Child::RIGHT] && !root.get()->children[Child::LEFT]) {
+            return nullptr;
+        }
+        // only right
+        if (!root.get()->children[Child::LEFT]) {
+            return root.get()->children[Child::RIGHT];
+        }
+        // only left
+        if (!root.get()->children[Child::RIGHT]) {
+            return root.get()->children[Child::LEFT];
+        }
+        // two children
+        auto node = Minimum(root.get()->children[Child::RIGHT]);
+        root.get()->key = node.get()->key;
+        root.get()->value=node.get()->value;
+        root.get()->children[Child::RIGHT] = Delete(root.get()->children[Child::RIGHT], node.get()->key);
+
+    }
+    else if (root.get()->key > key)
+    {
+        root.get()->children[Child::LEFT] = Delete(root.get()->children[Child::LEFT], key);
+    }
+    else if (root.get()->key < key)
+    {
+        root.get()->children[Child::RIGHT] = Delete(root.get()->children[Child::RIGHT], key);
+
+    }
+    return root;
+}
+template<typename TKey, typename TValue>
+bool Node<TKey, TValue>::Find(shared_ptr<Node<TKey, TValue> > root, TKey key, TValue &value)
+{
+    if (!root)
+    {
+        return false;
+    }
+    if (root.get()->key == key)
+    {
+        value = root.get()->value;
+        return true;
+
+    }
+    else if (root.get()->key > key)
+    {
+        return Find(root.get()->children[Child::LEFT], key, value);
+    }
+    else if (root.get()->key < key)
+    {
+        return Find(root.get()->children[Child::RIGHT], key, value);
+
+    }
+    return false;
+}
+
+template <typename TKey, typename TValue>
+shared_ptr<Node<TKey, TValue> > Node<TKey, TValue>::Minimum(shared_ptr<Node<TKey, TValue> > root)
+{
+    if (root.get()->children[Child::LEFT]) {
+        return Minimum(root.get()->children[Child::LEFT]);
+    }
+    return root;
+
 }

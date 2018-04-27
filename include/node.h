@@ -12,12 +12,15 @@ class Node
     shared_ptr<Node> children[2];
     TKey key;
     TValue value;
+    static shared_ptr<Node<TKey, TValue>> Minimum(shared_ptr<Node<TKey, TValue>> root);
 public:
     Node(TKey key, TValue value);
     TValue Value()const;
     void SetValue(TValue value);
     string String();
     static shared_ptr<Node<TKey, TValue>> Insert(shared_ptr<Node<TKey, TValue>> root, TKey key, TValue value);
+    static shared_ptr<Node<TKey, TValue>> Delete(shared_ptr<Node<TKey, TValue>> root, TKey key);
+    static bool Find(shared_ptr<Node<TKey, TValue>> root, TKey key, TValue &value);
 };
 
 #include "../src/node.cpp"
