@@ -1,6 +1,5 @@
 #include "tree.h"
 
-
 template<typename TKey, typename TValue>
 void Tree<TKey, TValue>::Insert(TKey key, TValue value)
 {
@@ -21,7 +20,7 @@ void Tree<TKey, TValue>::Delete(TKey key)
 template<typename TKey, typename TValue>
 bool Tree<TKey, TValue>::Find(TKey key, TValue &value)
 {
-     return Node<TKey, TValue>::Find(root, key, value);
+    return Node<TKey, TValue>::Find(root, key, value);
 }
 
 template<typename TKey, typename TValue>
@@ -33,3 +32,16 @@ string Tree<TKey, TValue>::String()
     }
     return root->String();
 }
+
+template<typename TKey, typename TValue>
+TValue Tree<TKey, TValue>::operator[](const TKey &key) const
+{
+            TValue value;
+            if (Node<TKey, TValue>::Find(root, key, value))
+            {
+                return value;
+            }
+            return TValue();
+}
+
+

@@ -14,6 +14,7 @@ public:
     void Delete(TKey key);
     bool Find(TKey key, TValue &value);
     string String();
+    TValue operator[](const TKey &key) const;
 };
 
 #include "../src/tree.cpp"
