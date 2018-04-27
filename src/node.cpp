@@ -49,14 +49,17 @@ shared_ptr<Node<TKey, TValue> > Node<TKey, TValue>::Insert(shared_ptr<Node<TKey,
     if (root.get()->key == key)
     {
         root.get()->SetValue(value);
+        return root;
     }
-    else if (root.get()->key > key)
+    if (root.get()->key > key)
     {
         root.get()->children[Child::LEFT] = Insert(root.get()->children[Child::LEFT], key, value);
+        return root;
     }
-    else if (root.get()->key < key)
+    if (root.get()->key < key)
     {
         root.get()->children[Child::RIGHT] = Insert(root.get()->children[Child::RIGHT], key, value);
+        return root;
     }
     return root;
 }
@@ -86,16 +89,17 @@ shared_ptr<Node<TKey, TValue> > Node<TKey, TValue>::Delete(shared_ptr<Node<TKey,
         root.get()->key = node.get()->key;
         root.get()->value=node.get()->value;
         root.get()->children[Child::RIGHT] = Delete(root.get()->children[Child::RIGHT], node.get()->key);
-
+        return root;
     }
-    else if (root.get()->key > key)
+    if (root.get()->key > key)
     {
         root.get()->children[Child::LEFT] = Delete(root.get()->children[Child::LEFT], key);
+        return root;
     }
-    else if (root.get()->key < key)
+    if (root.get()->key < key)
     {
         root.get()->children[Child::RIGHT] = Delete(root.get()->children[Child::RIGHT], key);
-
+        return root;
     }
     return root;
 }
@@ -110,13 +114,12 @@ bool Node<TKey, TValue>::Find(shared_ptr<Node<TKey, TValue> > root, TKey key, TV
     {
         value = root.get()->value;
         return true;
-
     }
-    else if (root.get()->key > key)
+    if (root.get()->key > key)
     {
         return Find(root.get()->children[Child::LEFT], key, value);
     }
-    else if (root.get()->key < key)
+    if (root.get()->key < key)
     {
         return Find(root.get()->children[Child::RIGHT], key, value);
 
