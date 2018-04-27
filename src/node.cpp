@@ -22,7 +22,8 @@ void Node<TKey, TValue>::SetValue(TValue value)
 template<typename TKey, typename TValue>
 string Node<TKey, TValue>::String()
 {
-    if (!this) {
+    if (!this) 
+    {
         return "()";
     }
     string s = "";
@@ -73,15 +74,18 @@ shared_ptr<Node<TKey, TValue> > Node<TKey, TValue>::Delete(shared_ptr<Node<TKey,
     if (root.get()->key == key)
     {
         // no children
-        if (!root.get()->children[Child::RIGHT] && !root.get()->children[Child::LEFT]) {
+        if (!root.get()->children[Child::RIGHT] && !root.get()->children[Child::LEFT]) 
+        {
             return nullptr;
         }
         // only right
-        if (!root.get()->children[Child::LEFT]) {
+        if (!root.get()->children[Child::LEFT]) 
+        {
             return root.get()->children[Child::RIGHT];
         }
         // only left
-        if (!root.get()->children[Child::RIGHT]) {
+        if (!root.get()->children[Child::RIGHT]) 
+        {
             return root.get()->children[Child::LEFT];
         }
         // two children
@@ -130,7 +134,8 @@ bool Node<TKey, TValue>::Find(shared_ptr<Node<TKey, TValue> > root, TKey key, TV
 template <typename TKey, typename TValue>
 shared_ptr<Node<TKey, TValue> > Node<TKey, TValue>::Minimum(shared_ptr<Node<TKey, TValue> > root)
 {
-    if (root.get()->children[Child::LEFT]) {
+    if (root.get()->children[Child::LEFT]) 
+    {
         return Minimum(root.get()->children[Child::LEFT]);
     }
     return root;
