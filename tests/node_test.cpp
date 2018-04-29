@@ -1,6 +1,5 @@
 #include <boost/test/unit_test.hpp>
-
-#include "node.h"
+#include "node.hpp"
 #include <memory>
 using  namespace std;
 

@@ -1,6 +1,6 @@
 #define BOOST_TEST_MODULE TreeTest
 #include <boost/test/unit_test.hpp>
-#include "tree.h"
+#include "tree.hpp"
 #include <memory>
 using  namespace std;
 
