@@ -65,7 +65,7 @@ BOOST_AUTO_TEST_CASE(Delete_test)
     BOOST_CHECK_EQUAL(node.get()->String(), "()");
 }
 
-BOOST_AUTO_TEST_CASE(Find_test)
+BOOST_AUTO_TEST_CASE(Search_test)
 {
     shared_ptr<Node<int, int>> node = make_shared<Node<int, int>>(1, 1);
     node = Node<int, int>::Insert(node, 0, 0);
@@ -77,18 +77,18 @@ BOOST_AUTO_TEST_CASE(Find_test)
     node = Node<int, int>::Insert(node, 7, 7);
     BOOST_CHECK_EQUAL(node.get()->String(), "((0:0)1:1((2:2)3:3((4:4)5:5(6:6(7:7)))))");
     int value;
-    auto found = Node<int, int>::Find(node, 3, value);
+    auto found = Node<int, int>::Search(node, 3, value);
     BOOST_CHECK(found);
     BOOST_CHECK_EQUAL(value, 3);
-    found = Node<int, int>::Find(node, 10, value);
+    found = Node<int, int>::Search(node, 10, value);
     BOOST_CHECK(!found);
-    found = Node<int, int>::Find(node, 1, value);
+    found = Node<int, int>::Search(node, 1, value);
     BOOST_CHECK(found);
     BOOST_CHECK_EQUAL(value, 1);
-    found = Node<int, int>::Find(node, 0, value);
+    found = Node<int, int>::Search(node, 0, value);
     BOOST_CHECK(found);
     BOOST_CHECK_EQUAL(value, 0);
-    found = Node<int, int>::Find(node, 4, value);
+    found = Node<int, int>::Search(node, 4, value);
     BOOST_CHECK(found);
     BOOST_CHECK_EQUAL(value, 4);
 }

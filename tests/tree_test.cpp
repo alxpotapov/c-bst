@@ -36,7 +36,7 @@ BOOST_AUTO_TEST_CASE(TreeDelete_test)
     BOOST_CHECK_EQUAL(tree->String(), "((1:1)2:2((4:4)7:7(8:8(9:9))))");
 }
 
-BOOST_AUTO_TEST_CASE(TreeFind_test)
+BOOST_AUTO_TEST_CASE(TreeSearch_test)
 {
     shared_ptr<Tree<int, int>> tree = make_shared<Tree<int, int>>();
     tree->Insert(2, 2);
@@ -50,10 +50,10 @@ BOOST_AUTO_TEST_CASE(TreeFind_test)
 
     int value;
 
-    BOOST_CHECK(tree->Find(5, value));
+    BOOST_CHECK(tree->Search(5, value));
     BOOST_CHECK_EQUAL(value, 5);
 
-    BOOST_CHECK(!tree->Find(10, value));
+    BOOST_CHECK(!tree->Search(10, value));
 
 }
 

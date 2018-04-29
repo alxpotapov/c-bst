@@ -19,9 +19,9 @@ public:
         root = Node<TKey, TValue>::Delete(root, key);
     }
 
-    bool Find(TKey key, TValue &value)
+    bool Search(TKey key, TValue &value)
     {
-        return Node<TKey, TValue>::Find(root, key, value);
+        return Node<TKey, TValue>::Search(root, key, value);
     }
     string String()
     {
@@ -30,7 +30,7 @@ public:
     TValue operator[](const TKey &key) const
     {
         TValue value;
-        return (Node<TKey, TValue>::Find(root, key, value)) ? value: TValue();
+        return (Node<TKey, TValue>::Search(root, key, value)) ? value: TValue();
     }
 };
 

@@ -24,7 +24,7 @@ public:
     string String();
     static shared_ptr<Node<TKey, TValue>> Insert(shared_ptr<Node<TKey, TValue>> root, TKey key, TValue value);
     static shared_ptr<Node<TKey, TValue>> Delete(shared_ptr<Node<TKey, TValue>> root, TKey key);
-    static bool Find(shared_ptr<Node<TKey, TValue>> root, TKey key, TValue &value);
+    static bool Search(shared_ptr<Node<TKey, TValue>> root, TKey key, TValue &value);
 };
 
 template <typename TKey, typename TValue>
@@ -135,7 +135,7 @@ shared_ptr<Node<TKey, TValue> > Node<TKey, TValue>::Delete(shared_ptr<Node<TKey,
     return root;
 }
 template<typename TKey, typename TValue>
-bool Node<TKey, TValue>::Find(shared_ptr<Node<TKey, TValue> > root, TKey key, TValue &value)
+bool Node<TKey, TValue>::Search(shared_ptr<Node<TKey, TValue> > root, TKey key, TValue &value)
 {
     if (!root)
     {
@@ -148,11 +148,11 @@ bool Node<TKey, TValue>::Find(shared_ptr<Node<TKey, TValue> > root, TKey key, TV
     }
     if (root.get()->key > key)
     {
-        return Find(root.get()->children[Child::LEFT], key, value);
+        return Search(root.get()->children[Child::LEFT], key, value);
     }
     if (root.get()->key < key)
     {
-        return Find(root.get()->children[Child::RIGHT], key, value);
+        return Search(root.get()->children[Child::RIGHT], key, value);
 
     }
     return false;
