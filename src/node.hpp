@@ -54,12 +54,12 @@ string Node<TKey, TValue>::String()
         return "()";
     }
     string s = "";
-    if (this->children[Child::LEFT] != nullptr)
+    if (this->children[Child::LEFT])
     {
         s += this->children[Child::LEFT].get()->String();
     }
     s += to_string(this->key) + ":" + to_string(this->value);
-    if (this->children[Child::RIGHT] != nullptr)
+    if (this->children[Child::RIGHT])
     {
         s += this->children[Child::RIGHT].get()->String();
     }
